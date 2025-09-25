@@ -32,7 +32,9 @@ onUnmounted (() => {
 
 
 <template>
-    <button @click="startSpin" :class="{'disable' : isDisable}">{{ buttonText }}</button>
+    <div class="centered">
+        <button @click="startSpin" :class="['spin-btn', '', {'disable' : isDisable}]">{{ buttonText }}</button>
+    </div>
 </template>
 
 
@@ -49,7 +51,7 @@ onUnmounted (() => {
        border-radius: 7px;    
        color: white;
        padding: 10px;
-       width: 14rem;
+       width: 22rem;
        border: 0;
     }
 

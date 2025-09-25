@@ -12,21 +12,20 @@ let isSpinning = ref(false);
 let finalRotation = ref(0);
 
 
-// called when the animation is finished
-const animationEnded = (k) => {
-  console.log(k);
-  console.log( pointerCalculation.value );
+// called when the animation is finished anjle moced
+const animationEnded = (angleMoved) => {
+  console.log(angleMoved);
+  // getting the prize value from the circle
+  pointerCalculation.value = ((angleMoved % 360) / 45);
+  const prizeValue = ref(circleSections.value[Math.ceil(pointerCalculation.value)]);
 
-  pointerCalculation.value = (k % 360 / 45);
-  console.log(Math.ceil(pointerCalculation.value)-1);
-  console.log(Math.ceil(pointerCalculation.value));
-  console.log(circleSections.value[Math.ceil(pointerCalculation.value)])
-  console.log(circleSections.value[Math.ceil(pointerCalculation.value)-2])
-
-
+  // clearing value
   pointerCalculation.value = 0;
+  angleMoved = 0;
+
   isSpinning.value = false; // setting wheel back to it's original position
   emitter.emit('spin-finished'); // emit an event to the spin button to update it's state
+  emitter.emit('player-prize', prizeValue.value); // emit an event to send back the prize player got after spin
 };
 
 // method is called when button is pressed
@@ -34,7 +33,7 @@ const spinWheel = () => {
   isSpinning.value = true; // enables wheel to spin
 
   // generate random angle for at which the wheel will spin
-  finalRotation.value = Math.ceil(Math.random() * (450 - 90) + 45);
+  finalRotation.value = Math.ceil(Math.random() * (360 - 90) + 90);
   root.style.setProperty('--final-rotation', `${finalRotation.value}deg`);
   
   // constantly watches for when the wheel finishes to spin
@@ -54,13 +53,15 @@ onUnmounted (() => {
 
 
 <template>
-  <div>
+  <div class="centered">
 
     <!-- Red Arrow Pointer (triangle at top) -->
     <div class="pointer">
-      <svg>
-        <polygon points="200,15 215,35 185,35" fill="#ff4444" stroke="#cc0000" stroke-width="1"/>
-      </svg>
+      <div>
+        <svg>
+          <polygon points="200,15 215,35 185,35" fill="#ff4444" stroke="#cc0000" stroke-width="1"/>
+        </svg>
+      </div> 
     </div>
     <!-- Wheel -->
     <svg :class="['wheel', {'spinning': isSpinning}]" ref="animationState" width="400" height="400" viewBox="0 0 400 400"  xmlns="http://www.w3.org/2000/svg">
@@ -103,9 +104,6 @@ onUnmounted (() => {
       <path d="M 200 200 L 72.72 72.72 A 180 180 0 0 1 200 20 Z" fill="#00bfa5" stroke="#999999" stroke-width="1"/>
       <text x="150" y="70" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333333" text-anchor="middle">{{ circleSections[7] }}</text>
 
-      <!-- Center hub -->
-      <!-- <circle cx="200" cy="200" r="20" fill="#ffffff" stroke="#999999" stroke-width="2"/>
-      <circle cx="200" cy="200" r="8" fill="#666666"/> -->
     </svg>
   </div>
 </template>
@@ -113,7 +111,20 @@ onUnmounted (() => {
 
 
 <style scoped>
+.pointer{
+  position: relative;
+  display: flex;
+  left: 1px;
+  z-index: 1;
+}
+
+.pointer > div{
+ position: absolute;
+ right: -100px;
+}
+
 .wheel  {
+
   transform-origin: center center;
   transition: transform 4s cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -135,7 +146,5 @@ onUnmounted (() => {
   100% {
     transform: rotate(var(--final-rotation));
   }
-  /*  */
-
 }
 </style>
