@@ -1,16 +1,14 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted, computed } from "vue";
+import trophyIcon from '../assets/Icons/icons8-trophy-cup.gif';
+import emitter from "../utils/emitter";
 import "../styles/index.css";
-
 </script>
 
 
 <template>
-  <div>hello world</div>
-    <!-- <header aria-label="Page Header">
-      
-    </header>
-    <main aria-label="Page Sliders">
-      <h1>hello world</h1>
-    </main> -->
+  <div>
+    <img  class="icons" :src="trophyIcon" alt="">
+    <span>Leaderboard</span>
+  </div>
 </template>

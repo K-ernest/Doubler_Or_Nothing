@@ -13,3 +13,7 @@ body {
     flex-direction: column;
     justify-content: center;
 }
+
+.icons{
+    width: 2.5rem;
+}
