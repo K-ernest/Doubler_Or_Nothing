@@ -1,6 +1,16 @@
+// import { defineConfig } from 'vite'
+// import vue from '@vitejs/plugin-vue'
+
+// export default defineConfig({
+// plugins: [vue()]
+// })
+
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import vercel from 'vitejs-plugin-vercel'
 
 export default defineConfig({
-plugins: [vue()]
+    server: {
+        port: process.env.PORT,
+    },
+    plugins: [vercel()]
 })
