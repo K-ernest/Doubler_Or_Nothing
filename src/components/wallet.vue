@@ -35,7 +35,7 @@ onUnmounted (() => {
   <!-- wallet -->
   <div>
     <img  class="icons" :src="walletIcon" alt="">
-    <span> ${{ walletBalance }} </span>
+    <span style="color: green; font-size: 0.8rem;"> ${{ walletBalance.toLocaleString() }} </span>
   </div>
   <!--  -->
 </template>

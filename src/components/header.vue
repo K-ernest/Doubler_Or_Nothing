@@ -22,7 +22,8 @@ import "../styles/index.css";
 <style scoped>
 header{
     display: flex;
-    padding: 10px;
+    margin: 0.3rem;
+    padding-top: 0.1rem;
     flex-direction: row;
     align-content: space-between;
     justify-content: space-between;

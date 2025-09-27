@@ -63,24 +63,9 @@ onUnmounted (() => {
   transform: translate(-50%, -50%);
 }
 
-.box {
-  box-shadow: 0 15px 15px -5px rgba(0, 0, 0, 0.2);  
-  box-shadow: inset hsl(224, 23%, 55%);
-  background-color: rgb(255, 255, 255);
-  justify-content: center;
-  flex-direction: column;
-  opacity: 8 !important;
-  border-radius: 10px;
-  align-items: center;
-  display: flex;
-  height: 14rem;
-  width: 16rem;
-  z-index: 3;
-  gap: 16px;
-}
-
 button {
   pointer-events: visible !important;
+  transition: box-shadow 0.1s ease;
   background: #333333;   
   border-radius: 7px;    
   color: white;

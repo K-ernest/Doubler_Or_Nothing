@@ -9,6 +9,6 @@ import "../styles/index.css";
 <template>
   <div>
     <img  class="icons" :src="trophyIcon" alt="">
-    <span>Leaderboard</span>
+    <span style="font-size: 0.8rem;">Leaderboard</span>
   </div>
 </template>
