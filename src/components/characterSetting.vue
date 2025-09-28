@@ -7,7 +7,7 @@ import "../styles/index.css";
 let avatar = ref("");
 let body = document.body;
 const isActive = ref(false);
-const playersName = ref("noobee");
+const playersName = ref("Noobee");
 let newName = ref(playersName.value);
 
 const editCharacter = () => {
@@ -23,7 +23,7 @@ const editFinished = () => {
   isActive.value = false;
 };
 
-// method for gettin random avatars
+// method for getting random avatars
 const pickRandomAvatar = () => {
   let keys = Object.keys(allAvatars);
   let randomAvatar = keys[Math.floor(Math.random() * keys.length)];
@@ -46,16 +46,16 @@ onMounted(() => {
     <!-- avatar edit settings div -->
     <div class="centered" v-if="isActive">
       <div class="box">
-        <span style="font-size: 0.8rem; color: red"
-          >click Avatar to change !</span
-        >
-        <span
-          @click="pickRandomAvatar"
-          style="pointer-events: visible !important"
-        >
+        <span style="font-size: 0.8rem; color: red">
+          click Avatar to change !
+        </span>
+        <span @click="pickRandomAvatar" style="pointer-events: visible !important">
           <img class="avatarIcon" :src="avatar" alt="avatar-icon" />
         </span>
-        <input type="" v-model="newName" />
+        <span class="inputSpan">
+          <input type="" v-model="newName" />
+          <i class="fa-solid fa-pen-to-square"></i>
+        </span>
         <span>Name: {{ newName }}</span>
         <button @click="editFinished">Save Changes</button>
       </div>
@@ -80,10 +80,27 @@ onMounted(() => {
   transform: translate(3px);
 }
 
+.fa-pen-to-square {
+  position: absolute;
+  font-size: 1.3rem;
+  right: 15%;
+}
+
+.inputSpan{
+  display: flex;
+  flex-direction: row;
+}
+
 input {
   pointer-events: visible !important;
-  border-width: 0.9px;
+  padding: 2.5px;
+  border-width: 0.9px; 
   border-radius: 5px;
+}
+
+input:focus-visible {
+  outline-offset: 0px;
+  outline-color: gold;
 }
 
 .centered {

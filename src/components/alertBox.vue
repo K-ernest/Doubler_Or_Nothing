@@ -58,7 +58,8 @@ onUnmounted (() => {
 <style scoped>
 .centered {
   top: 50%;
-  left: 50%;
+  left: 50%;  
+  z-index: 4;
   position: absolute;
   transform: translate(-50%, -50%);
 }

@@ -64,7 +64,7 @@ onUnmounted (() => {
       </div> 
     </div>
     <!-- Wheel -->
-    <svg :class="['wheel', {'spinning': isSpinning}]" ref="animationState" width="400" height="400" viewBox="0 0 400 400"  xmlns="http://www.w3.org/2000/svg">
+    <svg :class="['wheel', {'spinning': isSpinning}]" ref="animationState" viewBox="0 0 400 400"  xmlns="http://www.w3.org/2000/svg">
       <!-- Outer shadow/rim -->
       <circle cx="200" cy="200" r="195" fill="#e0e0e0" opacity="0.3"/>
       <circle cx="200" cy="200" r="190" fill="#ffffff" stroke="#cccccc" stroke-width="3"/>
@@ -114,7 +114,6 @@ onUnmounted (() => {
 .pointer{
   position: relative;
   display: flex;
-  left: 1px;
   z-index: 1;
 }
 
@@ -124,7 +123,10 @@ onUnmounted (() => {
 }
 
 .wheel  {
-
+  margin: 0;
+  padding: 0;
+  width: 25rem;
+  height: 25rem;
   transform-origin: center center;
   transition: transform 4s cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -146,5 +148,16 @@ onUnmounted (() => {
   100% {
     transform: rotate(var(--final-rotation));
   }
+}
+
+
+/* mobile version */
+@media only screen and (max-width: 768px) {
+
+  .wheel {
+    width: 16rem;
+    height: 16rem;
+  }
+
 }
 </style>

@@ -53,6 +53,7 @@ button {
     color: white;
     padding: 10px;
     width: 21rem;
+    z-index: 1px;
     border: 0;
 }
 
@@ -60,6 +61,15 @@ button:hover {
     font: 13px sans-serif;
     box-shadow: 0 2px #666;
     transform: translate(3px);
+}
+
+/* mobile version */
+@media only screen and (max-width: 768px) {
+
+  button {
+    width: 16rem;
+  }
+
 }
 </style>
 
