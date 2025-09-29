@@ -9,7 +9,12 @@ const isActive = ref(false);
 
 const openLeaderboard = () => {
   isActive.value = true;
-  // body.style.pointerEvents = "none";
+  body.style.pointerEvents = "none";
+};
+
+const closeLeaderboard = () => {
+  body.style.pointerEvents = "visible";
+  isActive.value = false;
 };
 </script>
 
@@ -18,30 +23,37 @@ const openLeaderboard = () => {
   <div>
     <!-- leaderboard icon -->
     <span @click="openLeaderboard">
-      <img class="icons leaderboardIcon"  :src="trophyIcon" alt="" />
+      <img class="icons leaderboard-icon" :src="trophyIcon" alt="leaderBoard Icon" />
     </span>
     <span style="font-size: 0.8rem">Leaderboard</span>
     <!-- Rankings board -->
-    <div class="centered" v-if="isActive">
-      <div class="box">
-        <span style="font-size: 0.8rem; color: gold; align-self:bottom;">
-          RANKINGS!
-          <i class="material-symbols-outlined">
-          contract
-        </i>
-          <i class="material-symbols-outlined">leaderboard</i>
-          <i class="fa-solid fa-pen-to-square"></i>
-        </span>
-        
+    <aside style="pointer-events: visible !important;">
+      <div class="centered" v-if="isActive">
+        <div class="box">
+          <!-- Ranking Text -->
+          <h3 >
+            RANKINGS!
+            <i class="material-symbols-outlined">leaderboard</i>
+            <button class="closeButton">
+              <i class="material-symbols-outlined" @click="closeLeaderboard">close</i>
+            </button>
+          </h3>
+          <!-- Names of people on the Ranking -->
+          <section class="ranking-list">
+            <ol>
+              <li v-for="x in 100" :key="x">player {{x}} </li>
+            </ol>
+          </section>
+        </div>
       </div>
-    </div>
+    </aside>
     <!--  -->
   </div>
 </template>
 
 
 <style scoped>
-.leaderboardIcon {
+.leaderboard-icon {
   width: 2.5rem;
   border-radius: 50%;
   border: 4px solid gold;
@@ -49,16 +61,70 @@ const openLeaderboard = () => {
   transition: box-shadow 0.3s ease;
 }
 
-.leaderboardIcon:hover {
+.leaderboard-icon:hover {
   box-shadow: 0 0 20px rgb(155, 153, 153), 0 0 40px rgb(155, 153, 153),
     0 0 60px rgb(155, 153, 153);
   transform: translate(3px);
 }
 
 .centered {
+  top: 50%;
   left: 50%;
-  bottom: 15%;
+  z-index: 2;
   position: absolute;
   transform: translate(-50%, -50%);
 }
+
+.box{
+  justify-content: flex-end;
+  align-items: center;
+  height: 29rem;
+}
+
+.box > h3 {
+  border-bottom: 2px solid;
+  align-items: flex-end;
+  position: absolute;
+  font-size: 0.8rem;
+  color: gold;
+  display: flex;
+  gap: 8px;
+  top: 2%;
+}
+
+button {
+  pointer-events: visible !important;
+  transition: transform 0.1s ease;
+  background: inherit;       
+  position: absolute;
+  color: gold;
+  left: 125%;
+  border: 0;
+}
+
+button:hover {
+  font: 13px sans-serif;
+  transform: translate(2.5px);
+}
+
+.ranking-list{
+  scroll-behavior: smooth;
+  flex-direction: column;
+  overflow-y: auto;
+  display: flex;
+  margin: 5px;
+  height: 85%;
+  width: 100%;
+}
+
+.ranking-list::-webkit-scrollbar {
+  width : 10px;
+ }
+
+.ranking-list::-webkit-scrollbar-thumb {
+  background-color: gold; 
+  border: 3px solid gold;
+  border-radius: 6px;
+ } 
+
 </style>

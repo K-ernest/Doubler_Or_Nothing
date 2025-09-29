@@ -40,14 +40,17 @@ onUnmounted (() => {
     <div class="centered" v-if="showAlert" > 
       <div class="box" style="opacity: 8;">
         <img :src="coin" alt="">
-        <span>
-          {{alertText}}
-        </span>
         <span v-if="alertText === 'Nothing'">
-          You Won Nothing 
+          <span>
+            {{alertText}}
+          </span>
+          <p>You Won Nothing</p>
         </span>
         <span v-else>
-          Congratulations
+          <span>
+           You Won : {{alertText}}
+          </span>
+          <p>Congratulations</p>
         </span>
         <button @click="closeAlert">Close</button>
       </div>
