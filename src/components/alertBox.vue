@@ -12,10 +12,7 @@ let showAlert = ref(false);
 // called when the wheel has finished spinning
 // and to show player's prize
 const playerPrize =  (prize) => {
-  // body.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
   body.style.pointerEvents = 'none';
-  // body.style.opacity = '0.3';
-  // body.style.zIndex = '2';
   alertText.value = prize;
   showAlert.value = true;
 }

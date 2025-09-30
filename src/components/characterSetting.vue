@@ -1,11 +1,12 @@
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from "vue";
+import { ref, onMounted, onUnmounted, computed, watchEffect } from "vue";
 import emitter from "../utils/emitter";
 import * as allAvatars from "../assets/Avatars/allAvatars";
 import "../styles/index.css";
 
 let avatar = ref("");
 let body = document.body;
+let progressValue = ref(100);
 const isActive = ref(false);
 const playersName = ref("Noobee");
 let newName = ref(playersName.value);
@@ -18,8 +19,7 @@ const editCharacter = () => {
 const editFinished = () => {
   // replacing the old player's name with new players name
   playersName.value = newName.value === "" ? playersName.value : newName.value;
-  body.style.pointerEvents = "visible"; 
-
+  body.style.pointerEvents = "visible";
   isActive.value = false;
 };
 
@@ -30,8 +30,41 @@ const pickRandomAvatar = () => {
   avatar.value = allAvatars[randomAvatar];
 };
 
+// called when the wheel has finished spinning
+// to reduce player's energy
+const reduceEnergy = () => {
+  progressValue.value -= 100;
+  progressValue.value = progressValue.value <= 0? 0: progressValue.value;
+
+  //  deactivate spin button button
+  if (progressValue.value === 0) {
+    emitter.emit("disable-spinButton"); // emit an event to spin button to update it's state
+  }
+};
+
+watchEffect(() => {
+  // to increase player's energy every
+  // 3.5s after reduction
+  setInterval(() => {
+    if (progressValue.value < 100) {
+      progressValue.value += 2.5;
+
+      // re-activate spin button
+      // runs ONLY when the progress value is at it's minimum value and is not 0
+      if (progressValue.value != 0 && progressValue.value === 2.5) {
+        emitter.emit("enable-spinButton"); // emit an event to spin button to update it's state
+      }
+    }
+  }, 30000);
+});
+
 onMounted(() => {
   pickRandomAvatar();
+  emitter.on("spin-finished", reduceEnergy);
+});
+
+onUnmounted(() => {
+  emitter.on("spin-finished", reduceEnergy);
 });
 </script>
 
@@ -39,19 +72,31 @@ onMounted(() => {
 <template>
   <div>
     <!-- avatar icon -->
-    <span @click="editCharacter">
+    <section class="player-info" @click="editCharacter">
       <img class="avatarIcon mainAvatarIcon" :src="avatar" alt="avatar-icon" />
-      <span >{{ playersName }}</span>
-    </span>
+      <aside>
+        <span>{{ playersName }}</span>
+        <input
+          style="pointer-events: none !important"
+          type="range"
+          max="100"
+          min="0"
+          :value="progressValue"
+        />
+      </aside>
+    </section>
     <!-- avatar edit settings div -->
-    <div class="centered" v-if="isActive">
+    <main class="centered" v-if="isActive">
       <div class="box">
         <span style="font-size: 0.8rem; color: red">
           click Avatar to change !
         </span>
-        <span @click="pickRandomAvatar" style="pointer-events: visible !important">
+        <figcaption
+          @click="pickRandomAvatar"
+          style="pointer-events: visible !important"
+        >
           <img class="avatarIcon" :src="avatar" alt="avatar-icon" />
-        </span>
+        </figcaption>
         <span class="inputSpan">
           <input type="" v-model="newName" />
           <i class="fa-solid fa-pen-to-square"></i>
@@ -59,13 +104,25 @@ onMounted(() => {
         <span>Name: {{ newName }}</span>
         <button @click="editFinished">Save Changes</button>
       </div>
-    </div>
+    </main>
     <!--  -->
   </div>
 </template>
 
 
 <style scoped>
+.player-info {
+  align-items: center;
+  display: flex;
+  gap: 5px;
+}
+
+.player-info > aside {
+  height: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
 .avatarIcon {
   width: 2.5rem;
   border-radius: 50%;
@@ -86,7 +143,7 @@ onMounted(() => {
   right: 15%;
 }
 
-.inputSpan{
+.inputSpan {
   display: flex;
   flex-direction: row;
 }
@@ -94,7 +151,7 @@ onMounted(() => {
 input {
   pointer-events: visible !important;
   padding: 2.5px;
-  border-width: 0.9px; 
+  border-width: 0.9px;
   border-radius: 5px;
 }
 

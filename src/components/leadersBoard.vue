@@ -31,13 +31,13 @@ const closeLeaderboard = () => {
       <div class="centered" v-if="isActive">
         <div class="box">
           <!-- Ranking Text -->
-          <h3 >
+          <h2 >
             RANKINGS!
             <i class="material-symbols-outlined">leaderboard</i>
             <button class="closeButton">
               <i class="material-symbols-outlined" @click="closeLeaderboard">close</i>
             </button>
-          </h3>
+          </h2>
           <!-- Names of people on the Ranking -->
           <section class="ranking-list">
             <ol>
@@ -81,11 +81,11 @@ const closeLeaderboard = () => {
   height: 29rem;
 }
 
-.box > h3 {
+.box > h2 {
   border-bottom: 2px solid;
   align-items: flex-end;
   position: absolute;
-  font-size: 0.8rem;
+  font-size: 1.3rem;
   color: gold;
   display: flex;
   gap: 8px;
@@ -98,7 +98,7 @@ button {
   background: inherit;       
   position: absolute;
   color: gold;
-  left: 125%;
+  left: 110%;
   border: 0;
 }
 

@@ -8,7 +8,7 @@ let isDisable = ref(false)
 
 // called when button is clicked
 const startSpin = () => {
-    isDisable.value = true ;
+    isDisable.value = true;
     buttonText.value ='Spinning ...';
     emitter.emit('start-spin') // emit an event to the spinner/wheel to enable it spin
         
@@ -23,6 +23,8 @@ const spinFinished =  () => {
 
 onMounted (() => {
   emitter.on('spin-finished', spinFinished)
+  emitter.on('enable-spinButton', () => isDisable.value = false )
+  emitter.on('disable-spinButton', () => isDisable.value = true)
 })
 
 onUnmounted (() => {
@@ -48,7 +50,7 @@ onUnmounted (() => {
 
 button {
     transition: box-shadow 0.1s ease;
-    background: black;   
+    background: #333333;   
     border-radius: 20%;    
     color: white;
     padding: 10px;
@@ -59,7 +61,7 @@ button {
 
 button:hover {
     font: 13px sans-serif;
-    box-shadow: 0 2px #666;
+    box-shadow: 0 2px rgb(126, 125, 125);
     transform: translate(3px);
 }
 

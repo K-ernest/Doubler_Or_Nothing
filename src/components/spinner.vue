@@ -1,5 +1,5 @@
 <script setup>
-import { ref , onMounted, onUnmounted, computed } from "vue";
+import { ref , onMounted, onUnmounted, computed, watchEffect } from "vue";
 import emitter  from "../utils/emitter";
 import "../styles/index.css";
 
@@ -24,7 +24,7 @@ const animationEnded = (angleMoved) => {
   angleMoved = 0;
 
   isSpinning.value = false; // setting wheel back to it's original position
-  emitter.emit('spin-finished'); // emit an event to the spin button to update it's state
+  emitter.emit('spin-finished'); // emit an event to components to update their state
   emitter.emit('player-prize', prizeValue.value); // emit an event to send back the prize player got after spin
 };
 
@@ -35,12 +35,14 @@ const spinWheel = () => {
   // generate random angle for at which the wheel will spin
   finalRotation.value = Math.ceil(Math.random() * (360 - 90) + 90);
   root.style.setProperty('--final-rotation', `${finalRotation.value}deg`);
-  
+};
+
+watchEffect(() => {
   // constantly watches for when the wheel finishes to spin
   if (animationState.value) {
    animationState.value.addEventListener('animationend', () => animationEnded(finalRotation.value));
   }
-};
+})
 
 onMounted (() => {
   emitter.on('start-spin', spinWheel); // emitted event from spin button when pressed to update wheels state
