@@ -33,16 +33,25 @@ onUnmounted (() => {
 
 <template>
   <!-- wallet -->
-  <div>
+  <section class="wallet-section">
     <img  class="icons" :src="walletIcon" alt="">
-    <span style=""><span>${{ walletBalance.toLocaleString() }}</span></span>
-  </div>
+    <span class="header-iconText">${{ walletBalance.toLocaleString() }}</span>
+  </section>
   <!--  -->
 </template>
 
 
 <style scoped>
-div > span{
+.icons {
+  border: 4px solid #f57c00;
+}
+
+.wallet-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.wallet-section > span{
   /* box-shadow: 0 2px rgb(141, 140, 140); */
   /* background: #33333373; */
   border-radius: 5px;

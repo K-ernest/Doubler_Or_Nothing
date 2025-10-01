@@ -22,13 +22,15 @@ const spinFinished =  () => {
 }
 
 onMounted (() => {
-  emitter.on('spin-finished', spinFinished)
-  emitter.on('enable-spinButton', () => isDisable.value = false )
-  emitter.on('disable-spinButton', () => isDisable.value = true)
+  emitter.on('spin-finished', spinFinished);
+  emitter.on('enable-spinButton', () => isDisable.value = false );
+  emitter.on('disable-spinButton', () => isDisable.value = true);
 })
 
 onUnmounted (() => {
-  emitter.on('spin-finished', spinFinished)
+  emitter.on('spin-finished', spinFinished);
+  emitter.on('enable-spinButton', () => isDisable.value = false );
+  emitter.on('disable-spinButton', () => isDisable.value = true);
 })
 </script>
 

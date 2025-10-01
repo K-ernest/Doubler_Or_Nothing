@@ -1,6 +1,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from "vue";
+import notification from '../components/notification.vue';
 import Leaderboard from '../components/leadersBoard.vue';
+import friends from '../components/friends.vue';
 import Wallet from '../components/wallet.vue';
 import "../styles/index.css";
 
@@ -10,8 +12,13 @@ import "../styles/index.css";
 
 <template>
   <header>
+    
     <!-- wallet -->
     <Wallet />
+    <!-- friends -->
+    <friends />
+    <!-- notifications -->
+    <notification />
     <!-- leaderboard -->
     <Leaderboard />
      <!--  -->

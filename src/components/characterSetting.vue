@@ -1,13 +1,14 @@
 <script setup>
-import { ref, onMounted, onUnmounted, computed, watchEffect } from "vue";
+import { ref, onMounted, onUnmounted, computed, watchEffect} from "vue";
 import emitter from "../utils/emitter";
 import * as allAvatars from "../assets/Avatars/allAvatars";
 import "../styles/index.css";
 
 let avatar = ref("");
 let body = document.body;
-let progressValue = ref(100);
 const isActive = ref(false);
+let progressValue = ref(100);
+let crossAnimation = ref(false);
 const playersName = ref("Noobee");
 let newName = ref(playersName.value);
 
@@ -33,7 +34,7 @@ const pickRandomAvatar = () => {
 // called when the wheel has finished spinning
 // to reduce player's energy
 const reduceEnergy = () => {
-  progressValue.value -= 100;
+  progressValue.value -= 15;
   progressValue.value = progressValue.value <= 0? 0: progressValue.value;
 
   //  deactivate spin button button
@@ -42,6 +43,7 @@ const reduceEnergy = () => {
   }
 };
 
+
 watchEffect(() => {
   // to increase player's energy every
   // 3.5s after reduction
@@ -49,6 +51,12 @@ watchEffect(() => {
     if (progressValue.value < 100) {
       progressValue.value += 2.5;
 
+      // show '+' for one second
+      crossAnimation.value = true;
+      setTimeout(() => {
+        crossAnimation.value = false;
+      }, 1500)
+     
       // re-activate spin button
       // runs ONLY when the progress value is at it's minimum value and is not 0
       if (progressValue.value != 0 && progressValue.value === 2.5) {
@@ -57,6 +65,7 @@ watchEffect(() => {
     }
   }, 30000);
 });
+
 
 onMounted(() => {
   pickRandomAvatar();
@@ -73,7 +82,7 @@ onUnmounted(() => {
   <div>
     <!-- avatar icon -->
     <section class="player-info" @click="editCharacter">
-      <img class="avatarIcon mainAvatarIcon" :src="avatar" alt="avatar-icon" />
+      <img class="icons" :src="avatar" alt="avatar-icon" />
       <aside>
         <span>{{ playersName }}</span>
         <input
@@ -83,6 +92,9 @@ onUnmounted(() => {
           min="0"
           :value="progressValue"
         />
+        <span class="cross-animation" v-if="crossAnimation">
+          <i class="fa-solid fa-plus"></i>2.5
+        </span>
       </aside>
     </section>
     <!-- avatar edit settings div -->
@@ -95,10 +107,10 @@ onUnmounted(() => {
           @click="pickRandomAvatar"
           style="pointer-events: visible !important"
         >
-          <img class="avatarIcon" :src="avatar" alt="avatar-icon" />
+          <img class="icons" :src="avatar" alt="avatar-icon" />
         </figcaption>
-        <span class="inputSpan">
-          <input type="" v-model="newName" />
+        <span class="input-span">
+          <input type="text" v-model="newName" maxlength="8"/>
           <i class="fa-solid fa-pen-to-square"></i>
         </span>
         <span>Name: {{ newName }}</span>
@@ -123,18 +135,16 @@ onUnmounted(() => {
   flex-direction: column;
 }
 
-.avatarIcon {
-  width: 2.5rem;
-  border-radius: 50%;
+.icons {
   border: 4px solid #00bfa5;
   background-color: #333333;
-  transition: box-shadow 0.3s ease;
 }
 
-.avatarIcon:hover {
-  box-shadow: 0 0 20px rgb(155, 153, 153), 0 0 40px rgb(155, 153, 153),
-    0 0 60px rgb(155, 153, 153);
-  transform: translate(3px);
+.cross-animation {
+  left: 10rem;
+  position: absolute;
+  color: rgb(37, 154, 201);
+  animation: fade-up 1.5s ease-out;
 }
 
 .fa-pen-to-square {
@@ -143,7 +153,7 @@ onUnmounted(() => {
   right: 15%;
 }
 
-.inputSpan {
+.input-span {
   display: flex;
   flex-direction: row;
 }
@@ -182,6 +192,17 @@ button:hover {
   font: 13px sans-serif;
   transform: translate(3px);
   box-shadow: 0 2px rgb(175, 175, 175);
+}
+
+@keyframes fade-up {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px)
+  }
 }
 </style>
 
