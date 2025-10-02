@@ -1,41 +1,54 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from "vue";
-import walletIcon from '../assets/Icons/icons8-wallet-48.png';
+import walletIcon from "../assets/Icons/icons8-wallet-48.png";
 import emitter from "../utils/emitter";
 import "../styles/index.css";
 
-const prizeMoney = ref({"$10B": 10000000000,"Nothing": 0, "$1M": 1000000, "$500k": 500000, "$10M": 10000000,
-    "$100M": 100000000, "$1B": 1000000000, "$50B": 50000000000});
-  
+const prizeMoney = ref({
+  $1k: 1000,
+  Nothing: 0,
+  $50k: 50000,
+  $10k: 10000,
+  $20k: 20000,
+  $2k: 2000,
+  $100k: 100000,
+  $15k: 15000,
+});
+
+let show_WalletBalance = ref(false);
 let initialBalance = ref(0);
 let walletBalance = ref(0);
 let totalBalance = ref(0);
 
 // called when the wheel has finished spinning
 // to update the player's wallet with the player's prize
-const playerPrize =  (prize) => {
-    initialBalance.value = prizeMoney.value[prize];
-    walletBalance.value = walletBalance.value + initialBalance.value;
-    console.log( initialBalance.value );
+const playerPrize = (prize) => {
+  initialBalance.value = prizeMoney.value[prize];
+  walletBalance.value = walletBalance.value + initialBalance.value;
+  console.log(initialBalance.value);
+};
 
-}
+onMounted(() => {
+  emitter.on("player-prize", playerPrize);
+});
 
-onMounted (() => {
-  emitter.on('player-prize', playerPrize);
-})
-
-onUnmounted (() => {
-  emitter.on('player-prize', playerPrize);
-})
-
+onUnmounted(() => {
+  emitter.on("player-prize", playerPrize);
+});
 </script>
 
 
 <template>
   <!-- wallet -->
-  <section class="wallet-section">
-    <img  class="icons" :src="walletIcon" alt="">
-    <span class="header-iconText">${{ walletBalance.toLocaleString() }}</span>
+  <section
+    class="wallet-section"
+    @mouseenter="show_WalletBalance = true"
+    @mouseleave="show_WalletBalance = false"
+  >
+    <img class="icons" :src="walletIcon" alt="" />
+    <span :class="{ 'hover': show_WalletBalance }">
+      ${{ walletBalance.toLocaleString() }}
+    </span>
   </section>
   <!--  -->
 </template>
@@ -43,22 +56,31 @@ onUnmounted (() => {
 
 <style scoped>
 .icons {
+  width: 2.5rem;
+  border-radius: 50%;
+  transition: box-shadow 0.3s ease;
   border: 4px solid #f57c00;
 }
 
 .wallet-section {
   display: flex;
+  position: relative;
   flex-direction: column;
 }
 
-.wallet-section > span{
-  /* box-shadow: 0 2px rgb(141, 140, 140); */
-  /* background: #33333373; */
-  border-radius: 5px;
-  font-size: 0.8rem;
-  color: green; 
-  padding: 3px;
-  width: 100%;
+.wallet-section > span {
+  display: none;
 }
 
+.wallet-section > span.hover {
+  box-shadow: 1px 1px 10px #f57c00;
+  position: absolute;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  color: green;
+  display: block;
+  padding: 3px;
+  width: 100%;
+  top: 3.5rem;
+}
 </style>

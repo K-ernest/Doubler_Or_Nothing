@@ -57,7 +57,7 @@ onUnmounted (() => {
 
 <style scoped>
 .centered {
-  top: 50%;
+  top: 50vh;
   left: 50%;  
   z-index: 4;
   position: absolute;

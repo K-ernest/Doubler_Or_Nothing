@@ -24,7 +24,9 @@ const closeInbox = () => {
     <!-- inbox icon -->
     <section @click="openInbox">
       <img class="icons" :src="inboxIcon" alt="inbox-icon" />
-      <span class="header-iconText">Inbox</span>
+      <span class="header-iconText" style="font-size:0.8rem; color:#333333;">
+        Inbox
+      </span>
     </section>
     <!-- inbox div -->
     <main style="pointer-events: visible !important">
@@ -32,7 +34,7 @@ const closeInbox = () => {
         <div class="box">
           <!-- inbox Text -->
           <h2>
-            INBOX
+            <span>INBOX</span>
             <button class="close-button" style="color: #333333;">
               <i class="material-symbols-outlined" @click="closeInbox">
                 close
@@ -64,6 +66,7 @@ const closeInbox = () => {
 }
 
 .box{  
+  box-shadow: 0 10px 10px 6px rgba(0, 0, 0, 0.2), 1px 1px 10px #333333;
   justify-content: flex-end;
   align-items: center;
   position: absolute;
@@ -72,15 +75,17 @@ const closeInbox = () => {
   top: 4rem;
 }
 
-.box > h2 {
+.box > h2 > span {
   border-bottom: 2px solid;
-  align-items: flex-end;
   position: absolute;
-  font-size: 0.9rem;
   color: #333333;
-  display: flex;
-  gap: 8px;
-  top: 0;
+  right: 50%
+}
+
+.box > h2 {
+  position: relative;
+  font-size: 0.9rem;
+  width: 100%;
 }
 
 .headerIcon-list::-webkit-scrollbar-thumb {

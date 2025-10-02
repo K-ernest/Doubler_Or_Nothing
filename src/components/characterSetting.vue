@@ -171,8 +171,8 @@ input:focus-visible {
 }
 
 .centered {
-  left: 50%;
-  bottom: 190%;
+  left: 50vw;
+  top: -50vh;
   position: absolute;
   transform: translate(-50%, -50%);
 }

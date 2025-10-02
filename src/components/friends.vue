@@ -25,7 +25,9 @@ const closeFriendList = () => {
     <!-- friends icon -->
     <section class="player-info" @click="openFriendList">
       <img class="icons" :src="friendsIcon" alt="friends-icon" />
-      <span class="header-iconText">Friends</span>
+      <span class="header-iconText" style="font-size:0.8rem; color:#00bfa5;">
+        Friends
+      </span>
     </section>
     <!-- list of friends div -->
     <main style="pointer-events: visible !important">
@@ -33,7 +35,7 @@ const closeFriendList = () => {
         <div class="box">
           <!-- FRIENDS Text -->
           <h2>
-            FRIENDS
+            <span>FRIENDS</span>
             <button class="close-button" style="color: #00bfa5;">
               <i class="material-symbols-outlined" @click="closeFriendList">
                 close
@@ -71,6 +73,7 @@ const closeFriendList = () => {
 
 
 .box{  
+  box-shadow: 0 10px 10px 6px rgba(0, 0, 0, 0.2), 1px 1px 10px #00bfa5;
   justify-content: flex-end;
   align-items: center;
   position: absolute;
@@ -79,16 +82,17 @@ const closeFriendList = () => {
   top: 4rem;
 }
 
+.box > h2 > span {
+  border-bottom: 2px solid;
+  position: absolute;
+  color: #00bfa5;
+  right: 50%
+}
 
 .box > h2 {
-  border-bottom: 2px solid;
-  align-items: flex-end;
-  position: absolute;
+  position: relative;
   font-size: 0.9rem;
-  color: #00bfa5;
-  display: flex;
-  gap: 8px;
-  top: 0;
+  width: 100%;
 }
 
 .headerIcon-list::-webkit-scrollbar-thumb {

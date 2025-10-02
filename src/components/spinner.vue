@@ -3,7 +3,7 @@ import { ref , onMounted, onUnmounted, computed, watchEffect } from "vue";
 import emitter  from "../utils/emitter";
 import "../styles/index.css";
 
-const circleSections = ref(['$10B', 'Nothing','$1M', '$500k', '$10M', '$100M', '$1B', '$50B']);
+const circleSections = ref(['$1k', 'Nothing','$50k', '$10k', '$20k', '$2k', '$100k', '$15k']);
 
 const root = document.documentElement;
 let pointerCalculation = ref(0);
@@ -116,7 +116,7 @@ onUnmounted (() => {
 .pointer{
   position: relative;
   display: flex;
-  z-index: 1;
+  z-index: 0;
 }
 
 .pointer > div{
@@ -125,6 +125,7 @@ onUnmounted (() => {
 }
 
 .wheel  {
+  z-index: -1;
   margin: 0;
   padding: 0;
   width: 25rem;
@@ -139,14 +140,11 @@ onUnmounted (() => {
 
 @keyframes spin-wheel {
   0% {
-
     transform: rotate(0deg);
   }
-
   50% {
     /* transform: rotate(3000deg); */
   }
-
   100% {
     transform: rotate(var(--final-rotation));
   }
@@ -155,6 +153,10 @@ onUnmounted (() => {
 
 /* mobile version */
 @media only screen and (max-width: 768px) {
+
+  .centered {
+    margin-top: 3rem;
+  }
 
   .wheel {
     width: 16rem;

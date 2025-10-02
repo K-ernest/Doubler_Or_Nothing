@@ -29,15 +29,18 @@ const closeLeaderboard = () => {
     <span @click="openLeaderboard">
       <img class="icons" :src="trophyIcon" alt="leaderBoard Icon" />
     </span>
-    <span class="header-iconText" style="font-size: 0.8rem">Leaderboard</span>
+    <span class="header-iconText" style="font-size:0.8rem; color:gold;" >
+      Leaderboard
+    </span>
     <!-- Rankings board -->
     <main style="pointer-events: visible !important;">
       <div class="centered" v-if="isActive">
         <div class="box">
           <!-- Ranking Text -->
           <h2 >
-            RANKINGS!
+            <span>RANKINGS!
             <i class="material-symbols-outlined">leaderboard</i>
+            </span>
             <button class="close-button" style="color: gold;">
               <i class="material-symbols-outlined" @click="closeLeaderboard">close</i>
             </button>
@@ -78,20 +81,23 @@ const closeLeaderboard = () => {
 }
 
 .box{
+  box-shadow: 0 10px 10px 6px rgba(0, 0, 0, 0.2), 1px 1px 10px gold;
   justify-content: flex-end;
   align-items: center;
   height: 29rem;
 }
 
-.box > h2 {
+.box > h2 > span {
   border-bottom: 2px solid;
-  align-items: flex-end;
   position: absolute;
-  font-size: 1.3rem;
   color: gold;
-  display: flex;
-  gap: 8px;
-  top: 2%;
+  right: 35%;
+}
+
+.box > h2 {
+  position: relative;
+  font-size: 0.9rem;
+  width: 100%;
 }
 
 .headerIcon-list::-webkit-scrollbar-thumb {
