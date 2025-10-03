@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted, computed, watchEffect} from "vue";
+import { ref, onMounted, onUnmounted, computed, watchEffect } from "vue";
 import emitter from "../utils/emitter";
 import * as allAvatars from "../assets/Avatars/allAvatars";
 import "../styles/index.css";
@@ -7,7 +7,7 @@ import "../styles/index.css";
 let avatar = ref("");
 let body = document.body;
 const isActive = ref(false);
-let progressValue = ref(100);
+let energyValue = ref(100);
 let crossAnimation = ref(false);
 const playersName = ref("Noobee");
 let newName = ref(playersName.value);
@@ -34,38 +34,36 @@ const pickRandomAvatar = () => {
 // called when the wheel has finished spinning
 // to reduce player's energy
 const reduceEnergy = () => {
-  progressValue.value -= 15;
-  progressValue.value = progressValue.value <= 0? 0: progressValue.value;
+  energyValue.value -= 15;
+  energyValue.value = energyValue.value <= 0 ? 0 : energyValue.value;
 
   //  deactivate spin button button
-  if (progressValue.value === 0) {
+  if (energyValue.value === 0) {
     emitter.emit("disable-spinButton"); // emit an event to spin button to update it's state
   }
 };
-
 
 watchEffect(() => {
   // to increase player's energy every
   // 3.5s after reduction
   setInterval(() => {
-    if (progressValue.value < 100) {
-      progressValue.value += 2.5;
+    if (energyValue.value < 100) {
+      energyValue.value += 2.5;
 
       // show '+' for one second
       crossAnimation.value = true;
       setTimeout(() => {
         crossAnimation.value = false;
-      }, 1500)
-     
+      }, 1500);
+
       // re-activate spin button
-      // runs ONLY when the progress value is at it's minimum value and is not 0
-      if (progressValue.value != 0 && progressValue.value === 2.5) {
+      // runs ONLY when the energy value is at it's minimum value and is not 0
+      if (energyValue.value != 0 && energyValue.value === 2.5) {
         emitter.emit("enable-spinButton"); // emit an event to spin button to update it's state
       }
     }
   }, 30000);
 });
-
 
 onMounted(() => {
   pickRandomAvatar();
@@ -90,7 +88,7 @@ onUnmounted(() => {
           type="range"
           max="100"
           min="0"
-          :value="progressValue"
+          :value="energyValue"
         />
         <span class="cross-animation" v-if="crossAnimation">
           <i class="fa-solid fa-plus"></i>2.5
@@ -99,21 +97,22 @@ onUnmounted(() => {
     </section>
     <!-- avatar edit settings div -->
     <main class="centered" v-if="isActive">
-      <div class="box">
+      <div class="box" style="pointer-events: visible !important">
         <span style="font-size: 0.8rem; color: red">
           click Avatar to change !
         </span>
-        <figcaption
-          @click="pickRandomAvatar"
-          style="pointer-events: visible !important"
-        >
+        <h3 style="margin:0;">Profile</h3>
+        <figcaption @click="pickRandomAvatar">
           <img class="icons" :src="avatar" alt="avatar-icon" />
         </figcaption>
         <span class="input-span">
-          <input type="text" v-model="newName" maxlength="8"/>
+          <input type="text" placeholder="Nickname" v-model="newName" maxlength="8" />
           <i class="fa-solid fa-pen-to-square"></i>
         </span>
         <span>Name: {{ newName }}</span>
+        <span style="color:rgb(37, 154, 201);">
+          Energy: {{ energyValue }}%
+        </span>
         <button @click="editFinished">Save Changes</button>
       </div>
     </main>
@@ -123,6 +122,19 @@ onUnmounted(() => {
 
 
 <style scoped>
+
+.centered {
+  left: 50vw;
+  top: -50vh;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.box{
+  gap: 0.6rem;
+  height: 17rem;
+}
+
 .player-info {
   align-items: center;
   display: flex;
@@ -159,7 +171,6 @@ onUnmounted(() => {
 }
 
 input {
-  pointer-events: visible !important;
   padding: 2.5px;
   border-width: 0.9px;
   border-radius: 5px;
@@ -170,15 +181,8 @@ input:focus-visible {
   outline-color: gold;
 }
 
-.centered {
-  left: 50vw;
-  top: -50vh;
-  position: absolute;
-  transform: translate(-50%, -50%);
-}
 
 button {
-  pointer-events: visible !important;
   transition: box-shadow 0.2s ease;
   background: #333333;
   border-radius: 20%;
@@ -201,7 +205,7 @@ button:hover {
   }
   100% {
     opacity: 0;
-    transform: translateY(-20px)
+    transform: translateY(-20px);
   }
 }
 </style>

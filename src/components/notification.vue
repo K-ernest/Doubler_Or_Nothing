@@ -43,8 +43,8 @@ const closeInbox = () => {
           </h2>
           <!-- inbox list -->
           <section class="headerIcon-list">
-            <ol style="list-style-type: decimal !important" start="1">
-              <li v-for="x in 100" :key="x">
+            <ol style="list-style-type: none !important" start="1">
+              <li v-for="x in 100" :key="x" style="">
                 <section>
                   <span>player {{ x }} </span>
                 </section>
@@ -70,8 +70,8 @@ const closeInbox = () => {
   justify-content: flex-end;
   align-items: center;
   position: absolute;
-  height: 14rem;
-  width: 11rem;
+  height: 11rem;
+  width: 14.5rem;
   top: 4rem;
 }
 
@@ -94,5 +94,17 @@ const closeInbox = () => {
   border-radius: 6px;
   } 
 
+.headerIcon-list > ol {
+  margin: 0;
+  padding: 0px 0px 0px 10px;
+  list-style-type: none !important;
+} 
+
+.headerIcon-list li section {
+  background-color: #b3b3b391;
+  margin: 6px 0px 6px 0px;
+  border-radius: 5px; 
+  padding: 10px;
+} 
 </style>
 

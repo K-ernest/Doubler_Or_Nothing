@@ -1,12 +1,10 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from "vue";
 import trophyIcon from "../assets/Icons/icons8-trophy-cup.gif";
+import playersRingColor from '../utils/playerRingColor';
 import mockAvatar from "../assets/Avatars/cat.png";
 import emitter from "../utils/emitter";
 import "../styles/index.css";
-
-const RingColor = ['red', '#00bfa5', '#333333'];
-const playersRingColor = Array(100).fill().map((_, i) => RingColor[i % RingColor.length])
 
 let body = document.body;
 const isActive = ref(false);
@@ -48,6 +46,15 @@ const closeLeaderboard = () => {
           <!-- Names of people on the Ranking -->
           <section class="headerIcon-list">
             <ol style="list-style-type:decimal!important;" start="1">
+              <!-- Rank details -->
+              <li class="rank-details" >
+                <section style="font-size: 0.9rem;">
+                  <span>Avatar</span>
+                  <span>Player </span> 
+                  <span>Balance</span>
+                </section>
+              </li>
+              <!-- Rank details -->
               <li v-for="x in 100" :key="x">
                 <section>
                   <img :style="{'border-color':playersRingColor[x]}" 
@@ -104,7 +111,11 @@ const closeLeaderboard = () => {
   background-color: gold; 
   border: 3px solid gold;
   border-radius: 6px;
-  } 
+} 
+
+.rank-details::marker {
+  content: "#   ";
+}
   
 
 </style>

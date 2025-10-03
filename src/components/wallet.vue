@@ -18,14 +18,21 @@ const prizeMoney = ref({
 let show_WalletBalance = ref(false);
 let initialBalance = ref(0);
 let walletBalance = ref(0);
-let totalBalance = ref(0);
 
 // called when the wheel has finished spinning
 // to update the player's wallet with the player's prize
 const playerPrize = (prize) => {
   initialBalance.value = prizeMoney.value[prize];
   walletBalance.value = walletBalance.value + initialBalance.value;
+  show_WalletBalance.value = true
+
+  // Hide balance after 3s of showing it
+  setTimeout(() => {
+    show_WalletBalance.value = false
+  }, 3000);
+
   console.log(initialBalance.value);
+
 };
 
 onMounted(() => {
