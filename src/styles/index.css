@@ -38,8 +38,8 @@ body {
     opacity: 8 !important;
     border-radius: 10px;
     align-items: center;
-    display: flex;
     height: 14.5rem;
+    display: flex;
     width: 16rem;
     z-index: 3;
     gap: 1rem;

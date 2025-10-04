@@ -98,6 +98,7 @@ onUnmounted(() => {
     <!-- avatar edit settings div -->
     <main class="centered" v-if="isActive">
       <div class="box" style="pointer-events: visible !important">
+        <!-- user avatar icon -->
         <span style="font-size: 0.8rem; color: red">
           click Avatar to change !
         </span>
@@ -105,14 +106,20 @@ onUnmounted(() => {
         <figcaption @click="pickRandomAvatar">
           <img class="icons" :src="avatar" alt="avatar-icon" />
         </figcaption>
-        <span class="input-span">
+        <!-- user input Nickname -->
+        <span class="input-span" >
           <input type="text" placeholder="Nickname" v-model="newName" maxlength="8" />
           <i class="fa-solid fa-pen-to-square"></i>
         </span>
-        <span>Name: {{ newName }}</span>
+        <!-- display user Nickname and energy  -->
+        <span>
+          <i class="fa-solid fa-user"></i>
+          Name: {{ newName }}</span>
         <span style="color:rgb(37, 154, 201);">
+          <i class="fa-solid fa-bolt"></i> 
           Energy: {{ energyValue }}%
         </span>
+        <!-- button to save changes and exit settings -->
         <button @click="editFinished">Save Changes</button>
       </div>
     </main>
@@ -124,15 +131,19 @@ onUnmounted(() => {
 <style scoped>
 
 .centered {
-  left: 50vw;
-  top: -50vh;
+  margin: -2px;
+  width: 100vw;
+  height: 100vh;
   position: absolute;
-  transform: translate(-50%, -50%);
+  transform: translate(-0.1vw, -96.5vh);
 }
 
 .box{
+  margin: -2;
   gap: 0.6rem;
-  height: 17rem;
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
 }
 
 .player-info {
@@ -162,10 +173,11 @@ onUnmounted(() => {
 .fa-pen-to-square {
   position: absolute;
   font-size: 1.3rem;
-  right: 15%;
+  right: 0;
 }
 
 .input-span {
+  position: relative;
   display: flex;
   flex-direction: row;
 }
@@ -180,7 +192,6 @@ input:focus-visible {
   outline-offset: 0px;
   outline-color: gold;
 }
-
 
 button {
   transition: box-shadow 0.2s ease;
