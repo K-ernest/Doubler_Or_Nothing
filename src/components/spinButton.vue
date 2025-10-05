@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted, computed } from "vue";
 import emitter from "../utils/emitter";
 import "../styles/index.css";
 
-let buttonText = ref('Spinn..');
+let buttonText = ref('Spinn.. 🎡');
 let isDisable = ref(false)
 
 // called when button is clicked
@@ -17,7 +17,7 @@ const startSpin = () => {
 // called when the wheel has finished spinning
 // and return button to it's original state
 const spinFinished =  () => {
-    buttonText.value ='Spinn..';
+    buttonText.value ='Spinn.. 🎡';
     isDisable.value = false ;
 }
 
@@ -37,7 +37,7 @@ onUnmounted (() => {
 
 <template>
     <div class="centered">
-        <button @click="startSpin" :class="['spin-btn', '', {'disable' : isDisable}]">{{ buttonText }}</button>
+        <button @click="startSpin" :class="['spin-btn', {'disable' : isDisable}]">{{ buttonText }}</button>
     </div>
 </template>
 

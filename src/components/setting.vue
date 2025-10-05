@@ -1,18 +1,21 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted, computed, watch } from "vue";
 import settingIcon from "../assets/Icons/icons8-settings.gif";
 import { useSound } from "../utils/soundManger";
 import "../styles/index.css";
 
- const { preload, play, setVolume, toggleMute, isMuted } = useSound();
+const { preload, play, stop, setVolume, sounds } = useSound();
+const gameMusics = ref(Object.keys(sounds));
 
-let body = document.body;
-let showSettings = ref(false);
+const volume = ref(0.6);
+const body = document.body;
+const enableMusic = ref(true);
+const showSettings = ref(false);
+const currentMusic = ref('casion');
 
 const openSettings = () => {
   showSettings.value = true;
-  body.style.pointerEvents = "none";
-
+  // body.style.pointerEvents = "none";
 };
 
 const closeSettings = () => {
@@ -20,17 +23,49 @@ const closeSettings = () => {
   showSettings.value = false;
 };
 
-const onLoadPlayGameSound = () => {
-  play('casion')
-}
+// watches when the user changes the game music
+watch(currentMusic, (newVal, oldVal) => {
+  console.log(currentMusic.value, newVal, oldVal)
+  stop(oldVal);
+  play(newVal);
+});
 
-// Preload sounds on mount
+// watches when the user increases or decreases
+// the game's music volume
+watch(volume, (newVal, oldVal) => {
+  setVolume(currentMusic.value, volume.value);
+});
+
+// watches when the user enables or disables
+// game's music sound and pauses or plays it
+watch(enableMusic, (newVal, oldVal) => {
+  if (oldVal != newVal) {
+    stop(currentMusic.value);
+  }
+  if ((oldVal = newVal)) {
+    play(currentMusic.value);
+  }
+});
+
 onMounted(() => {
-preload('casion', '/sounds/casino.mp3', { volume: 0.6 });
-preload('lounge', '/sounds/edm-lounge.mp3');
-preload('jazzcas', '/sounds/jazz-lounge-piano.mp3');
+  // perloading the musics and reading them for use
+  preload("casion", "/sounds/casino.mp3", { volume: volume.value });
+  preload("lounge", "/sounds/edm-lounge.mp3");
+  preload("jazzcas", "/sounds/jazz-lounge-piano.mp3");
 
-onLoadPlayGameSound()
+  // add an event thats plays music on user's first click
+  const onLoadPlayMusic = () => {
+    play("casion");
+    window.removeEventListener("click", onLoadPlayMusic);
+  };
+  window.addEventListener("click", onLoadPlayMusic, { once: true });
+});
+
+onUnmounted(() => {
+  // un-loading the musics
+  preload("casion", "/sounds/casino.mp3", { volume: volume.value });
+  preload("lounge", "/sounds/edm-lounge.mp3");
+  preload("jazzcas", "/sounds/jazz-lounge-piano.mp3");
 });
 </script>
 
@@ -45,23 +80,37 @@ onLoadPlayGameSound()
     <main class="centered" v-if="showSettings">
       <div class="box" style="pointer-events: visible !important">
         <!-- sounds/music to select -->
-        <h4 style="margin: 0">Change Music &nbsp; 
-          <i class="fa-solid fa-music"></i> 
+        <h4 style="margin: 0">
+          Change Music &nbsp;
+          <i class="fa-solid fa-music"></i>
         </h4>
-        <select name="hhh" id="">
-          <option value="">sound 1</option>
-          <option value="">sound 2</option>
-          <option value="">sound 3</option>
+        <select id="" v-model="currentMusic">
+          <option v-for="musics in gameMusics" :key="musics" :value="musics">
+            {{ musics }}
+          </option>
         </select>
         <!-- enable/disable music -->
         <section>
-          <span>Enable Music &nbsp;</span>
-          <input type="checkbox" style="accent-color: #607d8b"/>
+          <span>Enable Music: &nbsp;</span>
+          <input
+            type="checkbox"
+            v-model="enableMusic"
+            style="accent-color: #607d8b"
+          />
+          {{ enableMusic ? "Enabled 🔊" : "Disable 🔇" }}
         </section>
         <!-- sound/music volume control -->
         <section>
           <span style="font-size: 0.75rem">V+ / V- &nbsp;</span>
-          <input type="range" value="100" style="accent-color: #607d8b" />
+          <input
+            type="range"
+            style="accent-color: #607d8b"
+            v-model="volume"
+            min="0"
+            max="1"
+            step="0.1"
+          />
+          <span>{{ volume * 100 }}</span>
         </section>
         <!-- button to save changes and exit settings -->
         <button @click="closeSettings">Save Changes</button>
@@ -79,7 +128,7 @@ onLoadPlayGameSound()
 }
 
 .icons {
-  width: 1.5rem;
+  width: 2rem;
   border: 4px solid #607d8b;
 }
 

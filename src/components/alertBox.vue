@@ -45,7 +45,7 @@ onUnmounted (() => {
         </span>
         <span v-else>
           <span>
-           You Won : {{alertText}}
+           You Won 💰: {{alertText}}
           </span>
           <p>Congratulations</p>
         </span>

@@ -104,7 +104,7 @@ onUnmounted(() => {
         </span>
         <h3 style="margin:0;">Profile</h3>
         <figcaption @click="pickRandomAvatar">
-          <img class="icons" :src="avatar" alt="avatar-icon" />
+          <img class="icons" style="width:6rem;" :src="avatar" alt="avatar-icon" />
         </figcaption>
         <!-- user input Nickname -->
         <span class="input-span" >
@@ -140,7 +140,7 @@ onUnmounted(() => {
 
 .box{
   margin: -2;
-  gap: 0.6rem;
+  gap: 1.5rem;
   width: 100vw;
   height: 100vh;
   border-radius: 0;
