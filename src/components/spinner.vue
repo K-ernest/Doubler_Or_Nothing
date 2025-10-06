@@ -6,21 +6,23 @@ import "../styles/index.css";
 const circleSections = ref(['$1k', 'Nothing','$50k', '$10k', '$20k', '$2k', '$100k', '$15k']);
 
 const root = document.documentElement;
-let pointerCalculation = ref(0);
-let animationState = ref(null);
-let isSpinning = ref(false);
-let finalRotation = ref(0);
+const wheelSection = ref(0);
+const animationState = ref(null);
+const isSpinning = ref(false);
+const finalRotation = ref(0);
 
 
 // called when the animation is finished anjle moced
 const animationEnded = (angleMoved) => {
-  console.log(angleMoved);
   // getting the prize value from the circle
-  pointerCalculation.value = ((angleMoved % 360) / 45);
-  const prizeValue = ref(circleSections.value[Math.ceil(pointerCalculation.value)]);
+  const normalizedAngle = (angleMoved % 360)
+  const wheelAtPointer = ((360 - normalizedAngle) % 360)
+
+  wheelSection.value = Math.floor(wheelAtPointer / 45);
+  const prizeValue = ref(circleSections.value[Math.ceil(wheelSection.value)]);
 
   // clearing value
-  pointerCalculation.value = 0;
+  wheelSection.value = 0;
   angleMoved = 0;
 
   isSpinning.value = false; // setting wheel back to it's original position
@@ -143,7 +145,7 @@ onUnmounted (() => {
     transform: rotate(0deg);
   }
   50% {
-    /* transform: rotate(3000deg); */
+    transform: rotate(3000deg);
   }
   100% {
     transform: rotate(var(--final-rotation));

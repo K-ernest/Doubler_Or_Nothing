@@ -6,7 +6,7 @@ import coin from '../assets/Icons/icons8-coin.gif'
 
 let body = document.body
 let alertText = ref('');
-let showAlert = ref(false);
+let showAlert = ref(true);
 
 
 // called when the wheel has finished spinning
@@ -39,7 +39,7 @@ onUnmounted (() => {
         <img :src="coin" alt="">
         <span v-if="alertText === 'Nothing'">
           <span>
-            {{alertText}}
+            $0
           </span>
           <p>You Won Nothing</p>
         </span>
@@ -47,7 +47,7 @@ onUnmounted (() => {
           <span>
            You Won 💰: {{alertText}}
           </span>
-          <p>Congratulations</p>
+          <p>Congratulations 🎉</p>
         </span>
         <button @click="closeAlert">Close</button>
       </div>

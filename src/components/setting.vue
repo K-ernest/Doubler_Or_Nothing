@@ -4,8 +4,10 @@ import settingIcon from "../assets/Icons/icons8-settings.gif";
 import { useSound } from "../utils/soundManger";
 import "../styles/index.css";
 
-const { preload, play, stop, setVolume, sounds } = useSound();
-const gameMusics = ref(Object.keys(sounds));
+const { preload, play, stop, setVolume} = useSound();
+
+// list of musics preloaded
+const gameMusics = ['casion', 'lounge', 'jazzcas']; 
 
 const volume = ref(0.6);
 const body = document.body;
@@ -15,7 +17,7 @@ const currentMusic = ref('casion');
 
 const openSettings = () => {
   showSettings.value = true;
-  // body.style.pointerEvents = "none";
+  body.style.pointerEvents = "none";
 };
 
 const closeSettings = () => {
@@ -24,8 +26,9 @@ const closeSettings = () => {
 };
 
 // watches when the user changes the game music
+// stops the old music playing and start playing
+// the new music
 watch(currentMusic, (newVal, oldVal) => {
-  console.log(currentMusic.value, newVal, oldVal)
   stop(oldVal);
   play(newVal);
 });
@@ -85,7 +88,7 @@ onUnmounted(() => {
           <i class="fa-solid fa-music"></i>
         </h4>
         <select id="" v-model="currentMusic">
-          <option v-for="musics in gameMusics" :key="musics" :value="musics">
+          <option v-for="musics in gameMusics" :key="musics">
             {{ musics }}
           </option>
         </select>
