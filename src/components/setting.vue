@@ -4,16 +4,16 @@ import settingIcon from "../assets/Icons/icons8-settings.gif";
 import { useSound } from "../utils/soundManger";
 import "../styles/index.css";
 
-const { preload, play, stop, setVolume} = useSound();
+const { preload, play, stop, setVolume } = useSound();
 
 // list of musics preloaded
-const gameMusics = ['casion', 'lounge', 'jazzcas']; 
+const gameMusics = ["casion", "lounge", "jazzcas"];
 
 const volume = ref(0.6);
 const body = document.body;
 const enableMusic = ref(true);
 const showSettings = ref(false);
-const currentMusic = ref('casion');
+const currentMusic = ref("casion");
 
 const openSettings = () => {
   showSettings.value = true;
@@ -149,8 +149,14 @@ onUnmounted(() => {
 }
 
 .box > select {
-  width: 70%;
   border-radius: 5px;
+  padding: 0.5rem;
+  height: 2.5rem;
+  width: 70%;
+}
+
+.box > select:hover, select:focus-visible {
+  outline-color: #607d8b;
 }
 
 button {

@@ -35,9 +35,10 @@ const closeLeaderboard = () => {
       <div class="centered" v-if="isActive">
         <div class="box">
           <!-- Ranking Text -->
-          <h2 >
-            <span>RANKINGS!
-            <i class="material-symbols-outlined">leaderboard</i>
+          <h2 style="font-size:1.2rem!important;">
+            <span>
+              RANKINGS!
+              <i class="material-symbols-outlined">leaderboard</i>
             </span>
             <button class="close-button" style="color: gold;">
               <i class="material-symbols-outlined" @click="closeLeaderboard">close</i>
@@ -45,10 +46,11 @@ const closeLeaderboard = () => {
           </h2>
           <!-- Names of people on the Ranking -->
           <section class="headerIcon-list">
-            <ol style="list-style-type:decimal!important;" start="1">
+            <ol >
               <!-- Rank details -->
               <li class="rank-details" >
                 <section style="font-size: 0.9rem;">
+                  <span>#</span>
                   <span>Avatar</span>
                   <span>Player </span> 
                   <span>Balance</span>
@@ -57,11 +59,14 @@ const closeLeaderboard = () => {
               <!-- Rank details -->
               <li v-for="x in 100" :key="x">
                 <section>
+                  <span>&nbsp; {{x}}</span>
                   <img :style="{'border-color':playersRingColor[x]}" 
                     class="headerIcon-icon" :src="mockAvatar" alt="players-icon">
-                  <span>player {{x}} </span> 
+                  <span>player</span> 
+                  <span>{{ x }}</span>
                 </section>
               </li>
+              <!--  -->
             </ol>
           </section>
           <!--  -->
@@ -113,9 +118,32 @@ const closeLeaderboard = () => {
   border-radius: 6px;
 } 
 
-.rank-details::marker {
-  content: "#   ";
-}
-  
+.headerIcon-list > ol {
+  margin: 0;
+  padding: 16px 0px 0px 10px;
+  list-style-type: none !important;
+} 
 
+.headerIcon-list ol li{
+  margin: 0px 0px 6px 0px;
+  border-radius: 5px; 
+  padding: 1px;
+}
+ 
+.headerIcon-list ol li:nth-child(2) {
+  background-color: rgba(255, 217, 0, 0.521);
+  margin: 6px 0px 6px 0px;
+}
+
+.headerIcon-list ol li:nth-child(3) {
+  background-color: #b3b3b3ab;
+}
+
+.headerIcon-list ol li:nth-child(4) {
+  background-color: rgba(136, 117, 11, 0.521);
+}
+
+.headerIcon-list ol li:nth-child(n+5):nth-child(-n+110) {
+  background-color: #ad9d9d3a;
+}
 </style>

@@ -6,7 +6,7 @@ import coin from '../assets/Icons/icons8-coin.gif'
 
 let body = document.body
 let alertText = ref('');
-let showAlert = ref(true);
+let showAlert = ref(false);
 
 
 // called when the wheel has finished spinning

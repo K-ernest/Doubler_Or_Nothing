@@ -60,7 +60,6 @@ const closeFriendList = () => {
                     alt="friends-icon"
                   />
                   <span>player {{ x }} </span>
-                
                   <article><span>online</span></article>
                 </section>
               </li>
@@ -86,7 +85,7 @@ const closeFriendList = () => {
   align-items: center;
   position: absolute;
   height: 14rem;
-  width: 14.5rem;
+  width: 15rem;
   top: 4rem;
 }
 
@@ -143,5 +142,11 @@ const closeFriendList = () => {
   list-style-type: none !important;
   } 
 
+.headerIcon-list li section:hover {
+  background-color: #b3b3b357;
+  margin: 6px 0px 6px 0px;
+  border-radius: 5px; 
+  padding: 6px;
+} 
 </style>
 

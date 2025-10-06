@@ -106,5 +106,9 @@ const closeInbox = () => {
   border-radius: 5px; 
   padding: 10px;
 } 
+
+.headerIcon-list li section:hover {
+  background-color: #b3b3b357;
+} 
 </style>
 
