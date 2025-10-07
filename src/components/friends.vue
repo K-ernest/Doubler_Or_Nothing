@@ -142,6 +142,12 @@ const closeFriendList = () => {
   list-style-type: none !important;
   } 
 
+.headerIcon-list ol li{
+  margin: 0px 0px 6px 0px;
+  border-radius: 5px; 
+  padding: 1px;
+}
+
 .headerIcon-list li section:hover {
   background-color: #b3b3b357;
   margin: 6px 0px 6px 0px;

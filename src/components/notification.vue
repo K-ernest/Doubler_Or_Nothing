@@ -70,7 +70,7 @@ const closeInbox = () => {
   justify-content: flex-end;
   align-items: center;
   position: absolute;
-  height: 11rem;
+  height: 12rem;
   width: 14.5rem;
   top: 4rem;
 }
@@ -100,11 +100,15 @@ const closeInbox = () => {
   list-style-type: none !important;
 } 
 
+.headerIcon-list ol li{
+  margin: 0px 0px 6px 0px;
+  border-radius: 5px; 
+}
+
 .headerIcon-list li section {
   background-color: #b3b3b391;
-  margin: 6px 0px 6px 0px;
   border-radius: 5px; 
-  padding: 10px;
+  padding: 16px;
 } 
 
 .headerIcon-list li section:hover {
