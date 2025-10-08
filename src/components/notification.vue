@@ -70,7 +70,7 @@ const closeInbox = () => {
   justify-content: flex-end;
   align-items: center;
   position: absolute;
-  height: 12rem;
+  height: 17rem;
   width: 14.5rem;
   top: 4rem;
 }

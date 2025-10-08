@@ -1,10 +1,11 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed, watchEffect } from "vue";
+import { pickRandomAvatar } from '../utils/generateRandomItems'
+import googleIconVue from "./googleIcon.vue";
+import googleIcon from "./googleIcon.vue";
 import emitter from "../utils/emitter";
-import * as allAvatars from "../assets/Avatars/allAvatars";
 import "../styles/index.css";
 
-let avatar = ref("");
 let body = document.body;
 const isActive = ref(false);
 let energyValue = ref(100);
@@ -22,13 +23,6 @@ const editFinished = () => {
   playersName.value = newName.value === "" ? playersName.value : newName.value;
   body.style.pointerEvents = "visible";
   isActive.value = false;
-};
-
-// method for getting random avatars
-const pickRandomAvatar = () => {
-  let keys = Object.keys(allAvatars);
-  let randomAvatar = keys[Math.floor(Math.random() * keys.length)];
-  avatar.value = allAvatars[randomAvatar];
 };
 
 // called when the wheel has finished spinning
@@ -66,11 +60,12 @@ watchEffect(() => {
 });
 
 onMounted(() => {
-  pickRandomAvatar();
+  const avatarImg = pickRandomAvatar();
   emitter.on("spin-finished", reduceEnergy);
 });
 
 onUnmounted(() => {
+  const avatarImg = pickRandomAvatar();
   emitter.on("spin-finished", reduceEnergy);
 });
 </script>
@@ -80,7 +75,7 @@ onUnmounted(() => {
   <div>
     <!-- avatar icon -->
     <section class="player-info" @click="editCharacter">
-      <img class="icons" :src="avatar" alt="avatar-icon" />
+      <img class="icons" :src="avatarImg" alt="avatar-icon" />
       <aside>
         <span>{{ playersName }}</span>
         <input
@@ -121,6 +116,7 @@ onUnmounted(() => {
         </span>
         <!-- button to save changes and exit settings -->
         <button @click="editFinished">Save Changes</button>
+        <google-icon />
       </div>
     </main>
     <!--  -->

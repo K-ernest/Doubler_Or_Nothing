@@ -131,7 +131,7 @@ const closeLeaderboard = () => {
 }
  
 .headerIcon-list ol li:nth-child(2) {
-  background-color: rgba(255, 217, 0, 0.521);
+  background-color: rgba(255, 226, 62, 0.493);
   margin: 6px 0px 6px 0px;
 }
 
@@ -147,3 +147,4 @@ const closeLeaderboard = () => {
   background-color: #ad9d9d3a;
 }
 </style>
+

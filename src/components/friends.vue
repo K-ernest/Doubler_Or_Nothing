@@ -84,7 +84,7 @@ const closeFriendList = () => {
   justify-content: flex-end;
   align-items: center;
   position: absolute;
-  height: 14rem;
+  height: 19rem;
   width: 15rem;
   top: 4rem;
 }
