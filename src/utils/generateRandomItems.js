@@ -6,6 +6,5 @@ export const pickRandomAvatar = () => {
 
   let keys = Object.keys(allAvatars);
   let randomAvatar = keys[Math.floor(Math.random() * keys.length)];
-  avatar = allAvatars[randomAvatar];
-  return avatar
+  return avatar = allAvatars[randomAvatar];
 };
