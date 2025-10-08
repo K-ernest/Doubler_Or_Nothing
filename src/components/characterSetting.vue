@@ -100,7 +100,7 @@ onUnmounted(() => {
         </span>
         <h3 style="margin:0;">Profile</h3>
         <figcaption @click="pickRandomAvatar">
-          <img class="icons" style="width:6rem;" :src="avatar" alt="avatar-icon" />
+          <img class="icons" style="width:6rem;" :src="avatarImg" alt="avatar-icon" />
         </figcaption>
         <!-- user input Nickname -->
         <span class="input-span" >
