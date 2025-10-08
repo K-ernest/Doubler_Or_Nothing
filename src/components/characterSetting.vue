@@ -6,12 +6,13 @@ import googleIcon from "./googleIcon.vue";
 import emitter from "../utils/emitter";
 import "../styles/index.css";
 
-let body = document.body;
+const body = document.body;
+const avatarImg = ref('');
+const energyValue = ref(100);
 const isActive = ref(false);
-let energyValue = ref(100);
-let crossAnimation = ref(false);
+const crossAnimation = ref(false);
 const playersName = ref("Noobee");
-let newName = ref(playersName.value);
+const newName = ref(playersName.value);
 
 const editCharacter = () => {
   isActive.value = true;
@@ -60,12 +61,12 @@ watchEffect(() => {
 });
 
 onMounted(() => {
-  const avatarImg = pickRandomAvatar();
+  avatarImg.value = pickRandomAvatar();
   emitter.on("spin-finished", reduceEnergy);
 });
 
 onUnmounted(() => {
-  const avatarImg = pickRandomAvatar();
+  avatarImg.value = pickRandomAvatar();
   emitter.on("spin-finished", reduceEnergy);
 });
 </script>
