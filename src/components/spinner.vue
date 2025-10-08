@@ -6,14 +6,16 @@ import "../styles/index.css";
 const circleSections = ref(['$1k', 'Nothing','$50k', '$10k', '$20k', '$2k', '$100k', '$15k']);
 
 const root = document.documentElement;
-const wheelSection = ref(0);
 const animationState = ref(null);
 const isSpinning = ref(false);
 const finalRotation = ref(0);
+const wheelSection = ref(0);
+const body = document.body;
 
 
-// called when the animation is finished anjle moced
+// called when the animation is finished angle moved
 const animationEnded = (angleMoved) => {
+   body.style.pointerEvents = "visible";
   // getting the prize value from the circle
   const normalizedAngle = (angleMoved % 360)
   const wheelAtPointer = ((360 - normalizedAngle) % 360)
@@ -32,6 +34,7 @@ const animationEnded = (angleMoved) => {
 
 // method is called when button is pressed
 const spinWheel = () => {
+  body.style.pointerEvents = "none";
   isSpinning.value = true; // enables wheel to spin
 
   // generate random angle for at which the wheel will spin
