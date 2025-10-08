@@ -99,7 +99,7 @@ onUnmounted(() => {
           click Avatar to change !
         </span>
         <h3 style="margin:0;">Profile</h3>
-        <figcaption @click="avatarImg.value=pickRandomAvatar()">
+        <figcaption @click="avatarImg=pickRandomAvatar()">
           <img class="icons" style="width:6rem;" :src="avatarImg" alt="avatar-icon" />
         </figcaption>
         <!-- user input Nickname -->
