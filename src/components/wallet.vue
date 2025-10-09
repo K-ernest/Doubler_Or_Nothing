@@ -30,9 +30,6 @@ const playerPrize = (prize) => {
   setTimeout(() => {
     show_WalletBalance.value = false
   }, 3000);
-
-  console.log(initialBalance.value);
-
 };
 
 onMounted(() => {

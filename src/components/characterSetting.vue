@@ -1,17 +1,17 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed, watchEffect } from "vue";
-import { pickRandomAvatar } from '../utils/generateRandomItems'
+import { pickRandomAvatar, generateRandomName } from '../utils/generateRandomItems'
 import googleIconVue from "./googleIcon.vue";
 import googleIcon from "./googleIcon.vue";
 import emitter from "../utils/emitter";
 import "../styles/index.css";
 
-const body = document.body;
 const avatarImg = ref('');
-const energyValue = ref(100);
+const body = document.body;
+const playersName = ref('');
 const isActive = ref(false);
+const energyValue = ref(100);
 const crossAnimation = ref(false);
-const playersName = ref("Noobee");
 const newName = ref(playersName.value);
 
 const editCharacter = () => {
@@ -61,12 +61,18 @@ watchEffect(() => {
 });
 
 onMounted(() => {
+  // generate random avatar and name for players 
   avatarImg.value = pickRandomAvatar();
+  playersName.value = generateRandomName();
+
   emitter.on("spin-finished", reduceEnergy);
 });
 
 onUnmounted(() => {
+  // un-generate random avatar and name for players 
   avatarImg.value = pickRandomAvatar();
+  playersName.value = generateRandomName();
+
   emitter.on("spin-finished", reduceEnergy);
 });
 </script>
@@ -99,7 +105,7 @@ onUnmounted(() => {
           click Avatar to change !
         </span>
         <h3 style="margin:0;">Profile</h3>
-        <figcaption @click="avatarImg=pickRandomAvatar()">
+        <figcaption @click="avatarImg = pickRandomAvatar()">
           <img class="icons" style="width:6rem;" :src="avatarImg" alt="avatar-icon" />
         </figcaption>
         <!-- user input Nickname -->

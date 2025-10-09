@@ -7,13 +7,13 @@ import "../styles/index.css";
 const { preload, play, stop, setVolume } = useSound();
 
 // list of musics preloaded
-const gameMusics = ["casion", "lounge", "jazzcas"];
+const gameMusics = ["lounge", "jazzcas", "casion"];
 
 const volume = ref(0.6);
 const body = document.body;
 const enableMusic = ref(true);
 const showSettings = ref(false);
-const currentMusic = ref("casion");
+const currentMusic = ref("lounge");
 
 const openSettings = () => {
   showSettings.value = true;
@@ -52,13 +52,13 @@ watch(enableMusic, (newVal, oldVal) => {
 
 onMounted(() => {
   // perloading the musics and reading them for use
-  preload("casion", "/sounds/casino.mp3", { volume: volume.value });
-  preload("lounge", "/sounds/edm-lounge.mp3");
+  preload("lounge", "/sounds/edm-lounge.mp3", { volume: volume.value });
   preload("jazzcas", "/sounds/jazz-lounge-piano.mp3");
+  preload("casion", "/sounds/casino.mp3");
 
   // add an event thats plays music on user's first click
   const onLoadPlayMusic = () => {
-    play("casion");
+    play("lounge");
     window.removeEventListener("click", onLoadPlayMusic);
   };
   window.addEventListener("click", onLoadPlayMusic, { once: true });
@@ -66,9 +66,9 @@ onMounted(() => {
 
 onUnmounted(() => {
   // un-loading the musics
-  preload("casion", "/sounds/casino.mp3", { volume: volume.value });
-  preload("lounge", "/sounds/edm-lounge.mp3");
+  preload("lounge", "/sounds/edm-lounge.mp3", { volume: volume.value });
   preload("jazzcas", "/sounds/jazz-lounge-piano.mp3");
+  preload("casion", "/sounds/casino.mp3");
 });
 </script>
 
